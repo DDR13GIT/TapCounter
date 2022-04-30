@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TapCounter</string>
+    <string name="page_title">Tap Counter</string>
+    <string name="aboutDev">About Developer</string>
+</resources>
