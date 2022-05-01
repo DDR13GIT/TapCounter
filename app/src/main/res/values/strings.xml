@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">TapCounter</string>
+    <string name="app_name">Tap Counter</string>
     <string name="page_title">Tap Counter</string>
     <string name="aboutDev">About Developer</string>
+    <string name="navigration_open">Open Navigation Drawer</string>
+    <string name="navigration_close">Close Navigation Drawer</string>
 </resources>
