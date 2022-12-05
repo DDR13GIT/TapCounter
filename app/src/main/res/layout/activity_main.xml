@@ -5,7 +5,7 @@
     android:id="@+id/wholeView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_theme_light_inverseOnSurface"
+
     tools:context=".MainActivity">
 
     <Button
@@ -76,9 +76,9 @@
 
     <TextView
         android:id="@+id/countTxt"
+        android:textColor="@color/md_theme_light_onSecondaryContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginTop="267dp"
         android:layout_marginBottom="344dp"
         android:text="0"
