@@ -5,57 +5,51 @@
     android:id="@+id/wholeView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".MainActivity">
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/lockBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/rectangle"
-        android:drawableTop="@drawable/ic_baseline_lock_24"
-        android:drawableTint="@color/md_theme_light_secondaryContainer"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
         android:text="Lock"
         android:textSize="16sp"
+        app:icon="@drawable/round_lock_24"
+        app:iconGravity="textTop"
+        app:iconTint="@color/md_theme_light_secondaryContainer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/decreaseCountBtn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/resetBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/rectangle"
-        android:drawableTop="@drawable/ic_baseline_reset_24"
-        android:drawableTint="@color/md_theme_light_secondaryContainer"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
         android:text="Reset"
         android:textSize="16sp"
+        app:icon="@drawable/round_refresh_24"
+        app:iconGravity="textTop"
+        app:iconTint="@color/md_theme_light_secondaryContainer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/decreaseCountBtn" />
 
-    <Button
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/decreaseCountBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/rectangle"
-        android:drawableTop="@drawable/ic_baseline_remove_circle_24"
-        android:drawableTint="@color/md_theme_light_secondaryContainer"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:text="Decrease Count"
+        android:text="Count reverse"
         android:textSize="16sp"
+        app:icon="@drawable/round_arrow_drop_down_circle_24"
+        app:iconGravity="textTop"
+        app:iconTint="@color/md_theme_light_secondaryContainer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/resetBtn"
         app:layout_constraintHorizontal_bias="0.5"
@@ -76,23 +70,20 @@
 
     <TextView
         android:id="@+id/countTxt"
-        android:textColor="@color/md_theme_light_onSecondaryContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="267dp"
-        android:layout_marginBottom="344dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:text="0"
+        android:textColor="@color/md_theme_light_onSecondaryContainer"
         android:textSize="90sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAlignment="center"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/decreaseCountBtn"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
