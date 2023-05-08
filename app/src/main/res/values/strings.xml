@@ -1,5 +1,26 @@
 <resources>
-    <string name="app_name">TapCounter</string>
-    <string name="page_title">Tap Counter</string>
-    <string name="aboutDev">About Developer</string>
+    <string name="app_name">Tap Counter</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="settings_title">Settings</string>
+    <string name="sound_switch">Turn on sounds</string>
+    <string name="toggle_to_turn_on_off_sound">Toggle to turn on/off sound</string>
+    <string name="vibration_switch">Turn on vibration</string>
+    <string name="hardwareBtn_switch">Use Volume Buttons</string>
+    <string name="volumeBtn_switch">Use Volume Buttons</string>
+    <string name="app_title">Tap Counter</string>
 </resources>
