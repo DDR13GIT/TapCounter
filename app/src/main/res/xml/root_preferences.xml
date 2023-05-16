@@ -4,6 +4,7 @@
     <PreferenceCategory app:title="@string/control_header">
 
         <SwitchPreferenceCompat
+            app:defaultValue="false"
             app:key="sound_switch_key"
             app:summaryOff="@string/sound_Control_summary_off"
             app:summaryOn="@string/sound_Control_summary__on"
@@ -11,6 +12,7 @@
             app:icon="@drawable/baseline_volume_up_24"/>
 
         <SwitchPreferenceCompat
+            app:defaultValue="false"
             app:key="vibration_switch_key"
             app:summaryOff="@string/vibration_Control_summary_off"
             app:summaryOn="@string/vibration_Control_summary_on"
@@ -18,7 +20,8 @@
             app:icon="@drawable/baseline_vibration_24"/>
 
         <SwitchPreferenceCompat
-            app:key="sound_switch_key"
+            app:defaultValue="false"
+            app:key="volume_switch_key"
             app:summaryOff="@string/volume_Control_summary_off"
             app:summaryOn="@string/volume_Control_summary__on"
             app:title="@string/volumeBtn_switch"

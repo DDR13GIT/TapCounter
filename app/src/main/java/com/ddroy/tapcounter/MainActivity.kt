@@ -15,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.preference.PreferenceManager
+import com.ddroy.tapcounter.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
@@ -24,12 +25,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var img: ImageView
 
 
-
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-
+//        userSettings()
 
 
         val decreaseButton = findViewById<Button>(R.id.decreaseCountBtn)
@@ -48,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         decreaseButton.setOnClickListener {
-            if (flag == 1) {
+            if (flag == 0) {
                 count--
                 updateCountText()
             }
@@ -75,9 +77,7 @@ class MainActivity : AppCompatActivity() {
 
         val topAppBar =
             findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.topAppBar)
-//        topAppBar.setNavigationOnClickListener {
-//            // Handle navigation icon press
-//        }
+
 
         topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
@@ -93,6 +93,19 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+//    private fun userSettings(){
+//    val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+//        val sound_switch_key = prefs.getBoolean("sound_switch_key", false)
+//        val vibration_switch_key = prefs.getBoolean("vibration_switch_key", false)
+//        val volume_switch_key = prefs.getBoolean("volume_switch_key", false)
+//
+//        binding.apply {
+//            if(sound_switch_key){
+//
+//            }
+//        }
+//    }
 
     private fun updateCountText() {
         val builder = StringBuilder()
@@ -113,24 +126,28 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun checkAndPlayVibration() {
-        val vibrationSwitchState = sharedPreferences.getBoolean(VIBRATION_SWITCH_KEY, false)
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val vibration_switch_key = prefs.getBoolean("vibration_switch_key", false)
 
-        if (vibrationSwitchState) {
-            val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        binding.apply {
+            if (vibration_switch_key) {
+                val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
-            // Check if the device supports vibration
-            if (vibrator.hasVibrator()) {
-                // Vibrate for 100 milliseconds
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    vibrator.vibrate(
-                        VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE)
-                    )
-                } else {
-                    val vibrationEffect = VibrationEffect.createOneShot(100, 50)
-                    vibrator.vibrate(vibrationEffect)
+                // Check if the device supports vibration
+                if (vibrator.hasVibrator()) {
+                    // Vibrate for 100 milliseconds
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        vibrator.vibrate(
+                            VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE)
+                        )
+                    } else {
+                        val vibrationEffect = VibrationEffect.createOneShot(100, 50)
+                        vibrator.vibrate(vibrationEffect)
+                    }
                 }
             }
         }
+
     }
 
 }
