@@ -23,21 +23,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var txt: TextView
     private lateinit var img: ImageView
 
-    private lateinit var sharedPreferences: SharedPreferences
 
-    private val SOUND_SWITCH_KEY = "sound_switch"
-    private val VIBRATION_SWITCH_KEY = "vibration_switch"
-    private val VOLUME_BTN_SWITCH_KEY = "volumeBtn_switch"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
-//        // Retrieve the state of radio buttons from SharedPreferences
-//        val soundSwitchState = sharedPreferences.getBoolean(SOUND_SWITCH_KEY, false)
-//        val vibrationSwitchState = sharedPreferences.getBoolean(VIBRATION_SWITCH_KEY, false)
-//        val volumeBtnSwitchState = sharedPreferences.getBoolean(VOLUME_BTN_SWITCH_KEY, false)
 
 
         val decreaseButton = findViewById<Button>(R.id.decreaseCountBtn)

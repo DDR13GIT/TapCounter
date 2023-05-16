@@ -1,34 +1,28 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/messages_header">
 
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="@string/sync_header">
+    <PreferenceCategory app:title="@string/control_header">
 
         <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
+            app:key="sound_switch_key"
+            app:summaryOff="@string/sound_Control_summary_off"
+            app:summaryOn="@string/sound_Control_summary__on"
+            app:title="@string/sound_Control_title"
+            app:icon="@drawable/baseline_volume_up_24"/>
 
         <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
+            app:key="vibration_switch_key"
+            app:summaryOff="@string/vibration_Control_summary_off"
+            app:summaryOn="@string/vibration_Control_summary_on"
+            app:title="@string/vibration_switch"
+            app:icon="@drawable/baseline_vibration_24"/>
+
+        <SwitchPreferenceCompat
+            app:key="sound_switch_key"
+            app:summaryOff="@string/volume_Control_summary_off"
+            app:summaryOn="@string/volume_Control_summary__on"
+            app:title="@string/volumeBtn_switch"
+            app:icon="@drawable/baseline_phonelink_ring_24"/>
 
     </PreferenceCategory>
 

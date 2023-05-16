@@ -23,4 +23,12 @@
     <string name="hardwareBtn_switch">Use Volume Buttons</string>
     <string name="volumeBtn_switch">Use Volume Buttons</string>
     <string name="app_title">Tap Counter</string>
+    <string name="control_header">Controls\n</string>
+    <string name="sound_Control_title">Turn on sounds</string>
+    <string name="sound_Control_summary__on">Tap again disable the sound</string>
+    <string name="sound_Control_summary_off">Tap to enable sound</string>
+    <string name="volume_Control_summary__on">Tap again to disable hardware buttons to count</string>
+    <string name="volume_Control_summary_off">Tap to enable hardware buttons to count</string>
+    <string name="vibration_Control_summary_on">Tap again to disable vibration</string>
+    <string name="vibration_Control_summary_off">"Tap to enable vibration "</string>
 </resources>
