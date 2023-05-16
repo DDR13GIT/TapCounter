@@ -4,7 +4,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
-import android.os.Build
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.VibrationEffect
@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.preference.PreferenceManager
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,14 +22,22 @@ class MainActivity : AppCompatActivity() {
     private var flag = 0
     private lateinit var txt: TextView
     private lateinit var img: ImageView
-//    val sound_switch_flag = intent.getStringExtra("sound_switch_flag")
-//    val vibration_switch_flag = intent.getStringExtra("vibration_switch_flag")
-//    val volumeBtn_switch_flag = intent.getStringExtra("volumeBtn_switch_flag")
 
+    private lateinit var sharedPreferences: SharedPreferences
+
+    private val SOUND_SWITCH_KEY = "sound_switch"
+    private val VIBRATION_SWITCH_KEY = "vibration_switch"
+    private val VOLUME_BTN_SWITCH_KEY = "volumeBtn_switch"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+
+//        // Retrieve the state of radio buttons from SharedPreferences
+//        val soundSwitchState = sharedPreferences.getBoolean(SOUND_SWITCH_KEY, false)
+//        val vibrationSwitchState = sharedPreferences.getBoolean(VIBRATION_SWITCH_KEY, false)
+//        val volumeBtnSwitchState = sharedPreferences.getBoolean(VOLUME_BTN_SWITCH_KEY, false)
 
 
         val decreaseButton = findViewById<Button>(R.id.decreaseCountBtn)
@@ -42,18 +51,16 @@ class MainActivity : AppCompatActivity() {
                 count++
                 txt.text = count.toString()
                 textAnimation()
-
-//                if(sound_switch_flag?.equals(1) == true)
-//                    play_onPressVibration()
-
+                checkAndPlayVibration()
             }
         }
 
         decreaseButton.setOnClickListener {
-            if(flag == 1){
-            count--
-            updateCountText()
-        }}
+            if (flag == 1) {
+                count--
+                updateCountText()
+            }
+        }
 
         resetButton.setOnClickListener {
             count = 0
@@ -112,30 +119,31 @@ class MainActivity : AppCompatActivity() {
         animatorSet.start()
     }
 
-    private fun play_onPressVibration() {
-        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        if (vibrator.hasVibrator()) { // Vibrator availability checking
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrator.vibrate(
-                    VibrationEffect.createOneShot(
-                        500,
-                        VibrationEffect.DEFAULT_AMPLITUDE
+
+    private fun checkAndPlayVibration() {
+        val vibrationSwitchState = sharedPreferences.getBoolean(VIBRATION_SWITCH_KEY, false)
+
+        if (vibrationSwitchState) {
+            val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+
+            // Check if the device supports vibration
+            if (vibrator.hasVibrator()) {
+                // Vibrate for 100 milliseconds
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    vibrator.vibrate(
+                        VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE)
                     )
-                ) // New vibrate method for API Level 26 or higher
-            } else {
-                vibrator.vibrate(500) // Vibrate method for below API Level 26
+                } else {
+                    val vibrationEffect = VibrationEffect.createOneShot(100, 50)
+                    vibrator.vibrate(vibrationEffect)
+                }
             }
         }
     }
+
 }
 
-//decrese button bug
-//settings page added
-//settings page to main page nav
-//main page topapp bar added
-//main page topapp bar settings icon added
-//main page topapp bar settings icon click listener added
+// trying vibration on button click
+// need to store the count value using shared preferences
 
-//switch state needs to be saved
-//vibration function fix needed
 

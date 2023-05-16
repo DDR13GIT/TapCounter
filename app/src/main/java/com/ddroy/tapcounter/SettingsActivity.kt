@@ -1,74 +1,63 @@
 package com.ddroy.tapcounter
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import com.google.android.material.materialswitch.MaterialSwitch
 
 class SettingsActivity : AppCompatActivity() {
-    var sound_switch_flag = 0;
-    var vibration_switch_flag = 0;
-    var volumeBtn_switch_flag = 0;
+    private lateinit var sharedPreferences: SharedPreferences
+
+    private val SOUND_SWITCH_KEY = "sound_switch"
+    private val VIBRATION_SWITCH_KEY = "vibration_switch"
+    private val VOLUME_BTN_SWITCH_KEY = "volumeBtn_switch"
+
+    val soundSwitch = findViewById<MaterialSwitch>(R.id.sound_switch)
+    val vibrationSwitch = findViewById<MaterialSwitch>(R.id.sound_switch)
+    val volumeBtnSwitch = findViewById<MaterialSwitch>(R.id.sound_switch)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
-//        if (savedInstanceState == null) {
-//            supportFragmentManager
-//                .beginTransaction()
-//                .replace(R.id.settings, SettingsFragment())
-//                .commit()
-//        }
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
-        val sound_switch = findViewById<MaterialSwitch>(R.id.sound_switch)
-        val vibration_switch = findViewById<MaterialSwitch>(R.id.vibration_switch)
-        val volumeBtn_switch = findViewById<MaterialSwitch>(R.id.volumeBtn_switch)
+        // Retrieve the saved state and set the radio buttons accordingly
+        val soundSwitchState = sharedPreferences.getBoolean(SOUND_SWITCH_KEY, false)
+        soundSwitch.isChecked = soundSwitchState
 
-        sound_switch.setOnClickListener {
-            if (sound_switch.isChecked) {
-                sound_switch_flag = 0;
-            } else {
-                sound_switch_flag = 1;
-            }
+        val vibrationSwitchState = sharedPreferences.getBoolean(VIBRATION_SWITCH_KEY, false)
+        vibrationSwitch.isChecked = vibrationSwitchState
+
+        val volumeBtnSwitchState = sharedPreferences.getBoolean(VOLUME_BTN_SWITCH_KEY, false)
+        volumeBtnSwitch.isChecked = volumeBtnSwitchState
+
+        // Set listeners for radio button changes
+        soundSwitch.setOnCheckedChangeListener { _, isChecked ->
+            sharedPreferences.edit().putBoolean(SOUND_SWITCH_KEY, isChecked).apply()
         }
 
-        vibration_switch.setOnClickListener {
-            if (vibration_switch.isChecked) {
-                vibration_switch_flag = 0;
-            } else {
-                vibration_switch_flag = 1;
-            }
-
+        vibrationSwitch.setOnCheckedChangeListener { _, isChecked ->
+            sharedPreferences.edit().putBoolean(VIBRATION_SWITCH_KEY, isChecked).apply()
         }
 
-        volumeBtn_switch.setOnClickListener {
-            if (volumeBtn_switch.isChecked) {
-                volumeBtn_switch_flag = 0;
-            } else {
-                volumeBtn_switch_flag = 1;
-            }
+        volumeBtnSwitch.setOnCheckedChangeListener { _, isChecked ->
+            sharedPreferences.edit().putBoolean(VOLUME_BTN_SWITCH_KEY, isChecked).apply()
         }
 
-        val topAppBar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.settingsToolbar)
-       topAppBar.setNavigationOnClickListener {
-           finish()
-       }
 
-//        val intent = Intent(this, MainActivity::class.java)
-//        intent.putExtra("sound_switch_flag", sound_switch_flag)
-//        intent.putExtra("vibration_switch_flag", vibration_switch_flag)
-//        intent.putExtra("volumeBtn_switch_flag", volumeBtn_switch_flag)
-//        startActivity(intent)
+        val topAppBar =
+            findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.settingsToolbar)
+        topAppBar.setNavigationOnClickListener {
+            finish()
+        }
+
+
     }
-
-
-//    class SettingsFragment : PreferenceFragmentCompat() {
-//        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-//            setPreferencesFromResource(R.xml.root_preferences, rootKey)
-//        }
-//    }
 }
 
 
