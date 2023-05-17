@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 <style name="Base.Theme.TapCounter" parent="Theme.Material3.Light.NoActionBar">
     <item name="colorPrimary">@color/md_theme_light_primary</item>
     <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
@@ -27,4 +27,8 @@
     <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
     <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
 </style>
+    <style name="Preference.SwitchPreferenceCompat" parent="@style/Preference.SwitchPreferenceCompat.Material"
+        tools:ignore="ResourceCycle">
+        <item name="widgetLayout">@layout/preference_switch</item>
+    </style>
 </resources>
