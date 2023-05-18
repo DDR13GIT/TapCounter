@@ -33,7 +33,7 @@
         android:textSize="16sp"
         app:icon="@drawable/round_lock_24"
         app:iconGravity="textTop"
-        app:iconTint="?attr/colorSurface"
+        app:iconTint="?attr/colorSecondaryContainer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/decreaseCountBtn"
         app:layout_constraintHorizontal_bias="0.5"
@@ -49,7 +49,7 @@
         android:textSize="16sp"
         app:icon="@drawable/round_refresh_24"
         app:iconGravity="textTop"
-        app:iconTint="?attr/colorSurface"
+        app:iconTint="?attr/colorSecondaryContainer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -65,7 +65,7 @@
         android:textSize="16sp"
         app:icon="@drawable/round_arrow_drop_down_circle_24"
         app:iconGravity="textTop"
-        app:iconTint="?attr/colorSurface"
+        app:iconTint="?attr/colorSecondaryContainer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/resetBtn"
         app:layout_constraintHorizontal_bias="0.5"
@@ -81,7 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         app:srcCompat="@drawable/clove_shape"
-        app:tint="@color/md_theme_light_primaryContainer" />
+        app:tint="@color/md_theme_light_inversePrimary" />
 
     <TextView
         android:id="@+id/countTxt"
@@ -90,8 +90,8 @@
         android:gravity="center"
         android:text="0"
         android:textAlignment="center"
-        android:textColor="@color/md_theme_light_onSecondaryContainer"
-        android:textSize="90sp"
+        android:textColor="@color/md_theme_dark_inversePrimary"
+        android:textSize="150sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
