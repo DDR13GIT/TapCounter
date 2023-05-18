@@ -4,11 +4,16 @@ package com.ddroy.tapcounter
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.media.AudioManager
+import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.view.KeyEvent
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
@@ -24,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     private var flag = 0
     private lateinit var txt: TextView
     private lateinit var binding: ActivityMainBinding
-
+    private lateinit var audioManager: AudioManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         txt = findViewById(R.id.countTxt)
-
+        audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         count = sharedPreferences.getInt("count", 0)
         txt.text = count.toString()
@@ -43,25 +48,25 @@ class MainActivity : AppCompatActivity() {
                 txt.text = count.toString()
                 textAnimation()
                 checkAndPlayVibration()
-
-
+                checkAndPlaySound()
             }
         }
 
         binding.decreaseCountBtn.setOnClickListener {
             if (flag == 0) {
                 count--
-
-
                 updateCountText()
+                checkAndPlayVibration()
+                checkAndPlaySound()
             }
         }
 
         binding.resetBtn.setOnClickListener {
             count = 0
-
-
             updateCountText()
+            checkAndPlayVibration()
+            checkAndPlaySound()
+
         }
 
             binding.lockBtn.setOnClickListener {
@@ -94,6 +99,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
     }
 
     private fun updateCountText() {
@@ -125,33 +131,94 @@ class MainActivity : AppCompatActivity() {
 
                 // Check if the device supports vibration
                 if (vibrator.hasVibrator()) {
-                    val milliseconds = 100L
+                    val milliseconds = 50L
                     val amplitude = VibrationEffect.DEFAULT_AMPLITUDE
                     val effect = VibrationEffect.createOneShot(milliseconds, amplitude)
 
-                    vibrator.vibrate(effect)
+                    Handler().postDelayed({
+                        vibrator.vibrate(effect)
+                    }, 50)
                 }
             }
         }
 
     }
 
-    override fun onStop() {
-        super.onStop()
-        // Save the count value when the app is closed
-        sharedPreferences.edit().putInt("count", count).apply()
+    private fun checkAndPlaySound() {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val soundEnabled  = prefs.getBoolean("sound_switch_key", false)
+
+        if (soundEnabled) {
+        // Get the sound resource
+        val soundResId = R.raw.tap_sound
+
+        // Create a MediaPlayer object
+        val mediaPlayer = MediaPlayer.create(this, soundResId)
+
+        // Play the sound
+            Handler().postDelayed({
+                // Play the sound
+                mediaPlayer.start()
+            }, 50)
+        }
     }
 
-//    fun playTapSound() {
-//        // Get the sound resource
-//        val soundResId = R.raw.tap_sound
-//
-//        // Create a MediaPlayer object
-//        val mediaPlayer = MediaPlayer.create(this, soundResId)
-//
-//        // Play the sound
-//        mediaPlayer.start()
-//    }
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        val keyCode = event.keyCode
+
+        return when (keyCode) {
+            KeyEvent.KEYCODE_VOLUME_UP -> {
+                if (event.action == KeyEvent.ACTION_DOWN) {
+                    handleVolumeUp()
+                    return true
+                }
+                false
+            }
+
+            KeyEvent.KEYCODE_VOLUME_DOWN -> {
+                if (event.action == KeyEvent.ACTION_DOWN) {
+                    handleVolumeDown()
+                    return true
+                }
+                false
+            }
+
+            else -> super.dispatchKeyEvent(event)
+        }
+    }
+    private fun handleVolumeUp() {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val volumeEnabled = prefs.getBoolean("volume_switch_key", false)
+
+        if (volumeEnabled) {
+            count++
+            updateCountText()
+            checkAndPlayVibration()
+            checkAndPlaySound()
+
+            // Adjust volume without triggering system sound controller
+            audioManager.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE)
+        }
+    }
+
+    private fun handleVolumeDown() {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val volumeEnabled = prefs.getBoolean("volume_switch_key", false)
+
+        if (volumeEnabled) {
+            count--
+            updateCountText()
+            checkAndPlayVibration()
+            checkAndPlaySound()
+
+            // Adjust volume without triggering system sound controller
+            audioManager.adjustVolume(
+                AudioManager.ADJUST_LOWER,
+                AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE
+            )
+        }
+    }
+
 
 }
 
