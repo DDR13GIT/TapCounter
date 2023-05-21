@@ -31,4 +31,5 @@
     <string name="volume_Control_summary_off">Tap to enable hardware buttons to count</string>
     <string name="vibration_Control_summary_on">Tap again to disable vibration</string>
     <string name="vibration_Control_summary_off">"Tap to enable vibration "</string>
+    <string name="rate_us_on_play_store">Rate us on Play Store</string>
 </resources>
