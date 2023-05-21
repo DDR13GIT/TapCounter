@@ -11,6 +11,7 @@ import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
+import android.os.PowerManager
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.view.KeyEvent
@@ -99,7 +100,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
+        keepScreenOn(this)
     }
 
     private fun updateCountText() {
@@ -216,6 +217,20 @@ class MainActivity : AppCompatActivity() {
                 AudioManager.ADJUST_LOWER,
                 AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE
             )
+        }
+    }
+
+    private fun keepScreenOn(context: Context) {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val screenOnEnabled = prefs.getBoolean("screenOn_switch_key", false)
+
+
+        // If the screen_on_key is true, keep the screen on
+        if (screenOnEnabled) {
+            val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+            val wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK or PowerManager.ON_AFTER_RELEASE, "MyApp:KeepScreenOnTag")
+
+            wakeLock.acquire()
         }
     }
 
