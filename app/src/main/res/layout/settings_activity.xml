@@ -37,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:padding="24dp"
+        app:shapeAppearance="?attr/shapeAppearanceSmallComponent"
         android:drawableLeft="@drawable/google_play__1_"
         android:text="@string/rate_us_on_play_store" />
 

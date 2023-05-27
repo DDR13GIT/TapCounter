@@ -230,8 +230,21 @@ class MainActivity : AppCompatActivity() {
             val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
             val wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK or PowerManager.ON_AFTER_RELEASE, "MyApp:KeepScreenOnTag")
 
-            wakeLock.acquire()
+            wakeLock.acquire(10*60*1000L /*10 minutes*/)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Restore the count value from SharedPreferences
+        count = sharedPreferences.getInt("count", 0)
+        txt.text = count.toString()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Save the count value to SharedPreferences
+        sharedPreferences.edit().putInt("count", count).apply()
     }
 
 
