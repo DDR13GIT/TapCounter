@@ -151,7 +151,7 @@ class MainActivity : AppCompatActivity() {
 
         if (soundEnabled) {
         // Get the sound resource
-        val soundResId = R.raw.tap_sound
+        val soundResId = R.raw.beep
 
         // Create a MediaPlayer object
         val mediaPlayer = MediaPlayer.create(this, soundResId)
@@ -212,11 +212,9 @@ class MainActivity : AppCompatActivity() {
             checkAndPlayVibration()
             checkAndPlaySound()
 
-            // Adjust volume without triggering system sound controller
-            audioManager.adjustVolume(
-                AudioManager.ADJUST_LOWER,
-                AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE
-            )
+            // Prevent volume change by setting the volume to the current value
+            val currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume, 0)
         }
     }
 
