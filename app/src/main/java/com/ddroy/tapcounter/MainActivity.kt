@@ -9,6 +9,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.media.AudioManager
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.PowerManager
@@ -19,11 +20,12 @@ import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import com.ddroy.tapcounter.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
 
     private lateinit var sharedPreferences: SharedPreferences
     private var count = 0
@@ -101,6 +103,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         keepScreenOn(this)
+
     }
 
     private fun updateCountText() {
@@ -237,6 +240,9 @@ class MainActivity : AppCompatActivity() {
         // Restore the count value from SharedPreferences
         count = sharedPreferences.getInt("count", 0)
         txt.text = count.toString()
+
+//        applyTheme()
+//        recreate()
     }
 
     override fun onPause() {
@@ -246,6 +252,15 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+//    private fun applyTheme() {
+//        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+//        val themePreference = prefs.getString("theme_preference", "Light")
+//
+//        when (themePreference) {
+//            "Dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//            "Light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//        }
+//    }
 }
 
 

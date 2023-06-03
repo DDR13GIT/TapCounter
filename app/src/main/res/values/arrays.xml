@@ -1,5 +1,4 @@
 <resources>
-    <!-- Reply Preference -->
     <string-array name="theme_entries">
         <item>Dark</item>
         <item>Light</item>
@@ -9,6 +8,6 @@
     <string-array name="theme_values">
         <item>Dark</item>
         <item>Light</item>
-        <item>System Default</item>
+        <item>System_Default</item>
     </string-array>
 </resources>
