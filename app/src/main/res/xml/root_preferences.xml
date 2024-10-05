@@ -1,0 +1,58 @@
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <PreferenceCategory app:title="@string/control_header">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="sound_switch_key"
+            app:summaryOff="@string/sound_Control_summary_off"
+            app:summaryOn="@string/sound_Control_summary__on"
+            app:title="@string/sound_Control_title"
+            app:icon="@drawable/outline_volume_up_24" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="vibration_switch_key"
+            app:summaryOff="@string/vibration_Control_summary_off"
+            app:summaryOn="@string/vibration_Control_summary_on"
+            app:title="@string/vibration_switch"
+            app:icon="@drawable/baseline_vibration_24"/>
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:icon="@drawable/baseline_phonelink_ring_24"
+            app:key="volume_switch_key"
+            app:summaryOff="@string/volume_Control_summary_off"
+            app:summaryOn="@string/volume_Control_summary__on"
+            app:title="@string/volumeBtn_switch" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Display">
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:icon="@drawable/outline_wb_incandescent_24"
+            app:key="screenOn_switch_key"
+            app:summary="Keep the screen on while the app is running"
+            app:title="Keep the Screen On" />
+
+<!--        <ListPreference-->
+<!--            android:defaultValue="1"-->
+<!--            app:icon="@drawable/outline_palette_24"-->
+<!--            android:entries="@array/theme_entries"-->
+<!--            android:entryValues="@array/theme_entries"-->
+<!--            android:key="theme_preference"-->
+<!--            android:title="Theme" />-->
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Other">
+        <Preference
+            android:key="about_preference"
+            android:summary="2.1.0"
+            android:title="Version"
+            app:icon="@drawable/outline_info_24"/>
+
+    </PreferenceCategory>
+</androidx.preference.PreferenceScreen>

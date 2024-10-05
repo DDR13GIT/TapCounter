@@ -7,17 +7,34 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/top_app_bar"
+            app:title="@string/app_title" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/lockBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:text="Lock"
         android:textSize="16sp"
-        app:icon="@drawable/round_lock_24"
+        app:icon="@drawable/outline_lock_24"
         app:iconGravity="textTop"
-        app:iconTint="@color/md_theme_light_secondaryContainer"
+        app:iconTint="?attr/colorSecondaryContainer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/decreaseCountBtn"
         app:layout_constraintHorizontal_bias="0.5"
@@ -25,15 +42,16 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/resetBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:text="Reset"
         android:textSize="16sp"
         app:icon="@drawable/round_refresh_24"
         app:iconGravity="textTop"
-        app:iconTint="@color/md_theme_light_secondaryContainer"
+        app:iconTint="?attr/colorSecondaryContainer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -47,9 +65,9 @@
         android:layout_marginBottom="16dp"
         android:text="Count reverse"
         android:textSize="16sp"
-        app:icon="@drawable/round_arrow_drop_down_circle_24"
+        app:icon="@drawable/outline_arrow_drop_down_circle_24"
         app:iconGravity="textTop"
-        app:iconTint="@color/md_theme_light_secondaryContainer"
+        app:iconTint="?attr/colorSecondaryContainer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/resetBtn"
         app:layout_constraintHorizontal_bias="0.5"
@@ -62,28 +80,38 @@
         android:padding="40dp"
         app:layout_constraintBottom_toTopOf="@+id/decreaseCountBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         app:srcCompat="@drawable/clove_shape"
-        app:tint="@color/md_theme_light_primaryContainer" />
+        app:tint="@color/md_theme_light_inversePrimary" />
 
     <TextView
         android:id="@+id/countTxt"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="0"
-        android:textColor="@color/md_theme_light_onSecondaryContainer"
-        android:textSize="90sp"
-        android:textStyle="bold"
-        android:textAlignment="center"
+        android:layout_height="265dp"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/decreaseCountBtn"
-        app:layout_constraintDimensionRatio="1:1"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="@color/md_theme_dark_inversePrimary"
+        android:textSize="150sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="667dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="83dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
