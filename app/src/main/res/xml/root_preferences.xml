@@ -50,7 +50,7 @@
     <PreferenceCategory android:title="Other">
         <Preference
             android:key="about_preference"
-            android:summary="2.0.0"
+            android:summary="2.1.0"
             android:title="Version"
             app:icon="@drawable/outline_info_24"/>
 

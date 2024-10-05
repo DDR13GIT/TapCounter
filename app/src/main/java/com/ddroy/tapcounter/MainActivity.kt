@@ -1,266 +1,100 @@
-@file:Suppress("DEPRECATION")
-
 package com.ddroy.tapcounter
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.media.AudioManager
-import android.media.MediaPlayer
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.PowerManager
-import android.os.VibrationEffect
-import android.os.Vibrator
 import android.view.KeyEvent
-import android.widget.TextView
-import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.preference.PreferenceManager
+import androidx.lifecycle.ViewModelProvider
 import com.ddroy.tapcounter.databinding.ActivityMainBinding
+import com.ddroy.tapcounter.viewmodel.CounterViewModel
+import com.ddroy.tapcounter.utils.SoundManager
+import com.ddroy.tapcounter.utils.VibrationManager
+import com.ddroy.tapcounter.utils.ScreenManager
 
+class MainActivity : AppCompatActivity() {
 
-class MainActivity : AppCompatActivity(){
-
-    private lateinit var sharedPreferences: SharedPreferences
-    private var count = 0
-    private var flag = 0
-    private lateinit var txt: TextView
     private lateinit var binding: ActivityMainBinding
-    private lateinit var audioManager: AudioManager
+    private lateinit var viewModel: CounterViewModel
+    private lateinit var soundManager: SoundManager
+    private lateinit var vibrationManager: VibrationManager
+    private lateinit var screenManager: ScreenManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        txt = findViewById(R.id.countTxt)
-        audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        count = sharedPreferences.getInt("count", 0)
-        txt.text = count.toString()
+        viewModel = ViewModelProvider(this)[CounterViewModel::class.java]
+        soundManager = SoundManager(this)
+        vibrationManager = VibrationManager(this)
+        screenManager = ScreenManager(this)
 
-        binding.imageView3.setOnClickListener {
-            if (flag == 0) {
-                count++
-                txt.text = count.toString()
-                textAnimation()
-                checkAndPlayVibration()
-                checkAndPlaySound()
-            }
-        }
-
-        binding.decreaseCountBtn.setOnClickListener {
-            if (flag == 0) {
-                count--
-                updateCountText()
-                checkAndPlayVibration()
-                checkAndPlaySound()
-            }
-        }
-
-        binding.resetBtn.setOnClickListener {
-            count = 0
-            updateCountText()
-            checkAndPlayVibration()
-            checkAndPlaySound()
-
-        }
-
-            binding.lockBtn.setOnClickListener {
-            when (flag) {
-                0 -> {
-                    flag = 1
-                    Toast.makeText(this@MainActivity, "Counter Locked", LENGTH_SHORT).show()
-                }
-
-                1 -> {
-                    flag = 0
-                    Toast.makeText(this@MainActivity, "Counter Unlocked", LENGTH_SHORT).show()
-                }
-            }
-        }
-
-
-
-
-        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-
-                R.id.settings -> {
-                    val intent = Intent(this, SettingsActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-
-                else -> false
-            }
-        }
-
-        keepScreenOn(this)
-
+        setupUI()
+        observeViewModel()
     }
 
-    private fun updateCountText() {
-        val builder = StringBuilder()
-        builder.append(count)
-        txt.text = builder.toString()
-        sharedPreferences.edit().putInt("count", count).apply()
-        textAnimation()
-    }
-
-    private fun textAnimation() {
-        // Create an ObjectAnimator to animate the scale of the TextView
-        val scaleXAnimator = ObjectAnimator.ofFloat(txt, "scaleX", 0.7f, 1.0f)
-        val scaleYAnimator = ObjectAnimator.ofFloat(txt, "scaleY", 0.7f, 1.0f)
-        val animatorSet = AnimatorSet()
-        animatorSet.duration = 500
-        animatorSet.playTogether(scaleXAnimator, scaleYAnimator)
-        animatorSet.start()
-    }
-
-
-    private fun checkAndPlayVibration() {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        val vibrationEnabled  = prefs.getBoolean("vibration_switch_key", false)
-
+    private fun setupUI() {
         binding.apply {
-            if (vibrationEnabled) {
-                val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
-
-                // Check if the device supports vibration
-                if (vibrator.hasVibrator()) {
-                    val milliseconds = 50L
-                    val amplitude = VibrationEffect.DEFAULT_AMPLITUDE
-                    val effect = VibrationEffect.createOneShot(milliseconds, amplitude)
-
-                    Handler().postDelayed({
-                        vibrator.vibrate(effect)
-                    }, 50)
+            imageView3.setOnClickListener { viewModel.incrementCount() }
+            decreaseCountBtn.setOnClickListener { viewModel.decrementCount() }
+            resetBtn.setOnClickListener { viewModel.resetCount() }
+            lockBtn.setOnClickListener { viewModel.toggleLock() }
+            topAppBar.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.settings -> {
+                        startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
+                        true
+                    }
+                    else -> false
                 }
             }
         }
-
     }
 
-    private fun checkAndPlaySound() {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        val soundEnabled  = prefs.getBoolean("sound_switch_key", false)
+    private fun observeViewModel() {
+        viewModel.count.observe(this) { count ->
+            binding.countTxt.text = count.toString()
+            animateCountText()
+        }
 
-        if (soundEnabled) {
-        // Get the sound resource
-        val soundResId = R.raw.beep
+        viewModel.isLocked.observe(this) { isLocked ->
+            binding.lockBtn.setIconResource(
+                if (isLocked) R.drawable.ic_lock_closed
+                else R.drawable.ic_lock_open
+            )
+        }
 
-        // Create a MediaPlayer object
-        val mediaPlayer = MediaPlayer.create(this, soundResId)
+        viewModel.playSound.observe(this) { shouldPlay ->
+            if (shouldPlay) soundManager.playSound()
+        }
 
-        // Play the sound
-            Handler().postDelayed({
-                // Play the sound
-                mediaPlayer.start()
-            }, 50)
+        viewModel.vibrate.observe(this) { shouldVibrate ->
+            if (shouldVibrate) vibrationManager.vibrate()
         }
     }
 
-    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
-        val keyCode = event.keyCode
-
-        return when (keyCode) {
-            KeyEvent.KEYCODE_VOLUME_UP -> {
-                if (event.action == KeyEvent.ACTION_DOWN) {
-                    handleVolumeUp()
-                    return true
-                }
-                false
-            }
-
-            KeyEvent.KEYCODE_VOLUME_DOWN -> {
-                if (event.action == KeyEvent.ACTION_DOWN) {
-                    handleVolumeDown()
-                    return true
-                }
-                false
-            }
-
-            else -> super.dispatchKeyEvent(event)
-        }
-    }
-    private fun handleVolumeUp() {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        val volumeEnabled = prefs.getBoolean("volume_switch_key", false)
-
-        if (volumeEnabled) {
-            count++
-            updateCountText()
-            checkAndPlayVibration()
-            checkAndPlaySound()
-
-            // Adjust volume without triggering system sound controller
-            audioManager.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE)
-        }
-    }
-
-    private fun handleVolumeDown() {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        val volumeEnabled = prefs.getBoolean("volume_switch_key", false)
-
-        if (volumeEnabled) {
-            count--
-            updateCountText()
-            checkAndPlayVibration()
-            checkAndPlaySound()
-
-            // Prevent volume change by setting the volume to the current value
-            val currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume, 0)
-        }
-    }
-
-    private fun keepScreenOn(context: Context) {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        val screenOnEnabled = prefs.getBoolean("screenOn_switch_key", false)
-
-
-        // If the screen_on_key is true, keep the screen on
-        if (screenOnEnabled) {
-            val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
-            val wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK or PowerManager.ON_AFTER_RELEASE, "MyApp:KeepScreenOnTag")
-
-            wakeLock.acquire(10*60*1000L /*10 minutes*/)
+    private fun animateCountText() {
+        binding.countTxt.apply {
+            scaleX = 0.7f
+            scaleY = 0.7f
+            animate().scaleX(1f).scaleY(1f).setDuration(500).start()
         }
     }
 
     override fun onResume() {
         super.onResume()
-        // Restore the count value from SharedPreferences
-        count = sharedPreferences.getInt("count", 0)
-        txt.text = count.toString()
-
-//        applyTheme()
-//        recreate()
+        screenManager.keepScreenOn(viewModel.isScreenOnEnabled())
     }
 
-    override fun onPause() {
-        super.onPause()
-        // Save the count value to SharedPreferences
-        sharedPreferences.edit().putInt("count", count).apply()
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        return when {
+            viewModel.handleVolumeButton(event) -> true
+            else -> super.dispatchKeyEvent(event)
+        }
     }
 
-
-//    private fun applyTheme() {
-//        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-//        val themePreference = prefs.getString("theme_preference", "Light")
-//
-//        when (themePreference) {
-//            "Dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//            "Light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//        }
-//    }
+    override fun onDestroy() {
+        super.onDestroy()
+        soundManager.release()
+    }
 }
-
-
