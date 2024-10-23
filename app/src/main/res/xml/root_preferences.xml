@@ -38,13 +38,13 @@
             app:summary="Keep the screen on while the app is running"
             app:title="Keep the Screen On" />
 
-<!--        <ListPreference-->
-<!--            android:defaultValue="1"-->
-<!--            app:icon="@drawable/outline_palette_24"-->
-<!--            android:entries="@array/theme_entries"-->
-<!--            android:entryValues="@array/theme_entries"-->
-<!--            android:key="theme_preference"-->
-<!--            android:title="Theme" />-->
+        <ListPreference
+            android:defaultValue="GREEN"
+            android:entries="@array/theme_entries"
+            android:entryValues="@array/theme_values"
+            android:key="pref_theme"
+            android:title="@string/theme_title"
+            android:summary="@string/theme_summary" />
 
     </PreferenceCategory>
     <PreferenceCategory android:title="Other">

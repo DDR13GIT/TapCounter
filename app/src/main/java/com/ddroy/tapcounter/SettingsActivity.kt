@@ -9,7 +9,9 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import androidx.preference.ListPreference
 import com.ddroy.tapcounter.databinding.SettingsActivityBinding
+import com.ddroy.tapcounter.utils.ColorTheme
 import com.ddroy.tapcounter.utils.PreferenceKeys
+import com.ddroy.tapcounter.utils.ThemeManager
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -42,7 +44,10 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(intent)
         } catch (e: Exception) {
             // If Play Store app is not available, open the Play Store website
-            val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$packageName"))
+            val webIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+            )
             startActivity(webIntent)
         }
     }
@@ -87,13 +92,15 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         private fun setupThemePreference() {
-            findPreference<ListPreference>(PreferenceKeys.PREF_THEME)?.setOnPreferenceChangeListener { _, newValue ->
-                when (newValue) {
-                    "Dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    "Light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            findPreference<ListPreference>(PreferenceKeys.PREF_THEME)?.apply {
+                entries = ColorTheme.values().map { it.themeName }.toTypedArray()
+                entryValues = ColorTheme.values().map { it.name }.toTypedArray()
+                setOnPreferenceChangeListener { _, newValue ->
+                    val selectedTheme = ColorTheme.valueOf(newValue as String)
+                    ThemeManager.applyTheme(requireContext(), selectedTheme)
+                    activity?.recreate()
+                    true
                 }
-                true
             }
         }
     }

@@ -10,6 +10,7 @@ import com.ddroy.tapcounter.viewmodel.CounterViewModel
 import com.ddroy.tapcounter.utils.SoundManager
 import com.ddroy.tapcounter.utils.VibrationManager
 import com.ddroy.tapcounter.utils.ScreenManager
+import com.ddroy.tapcounter.utils.ThemeManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,7 +21,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var screenManager: ScreenManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+            super.onCreate(savedInstanceState)
+            ThemeManager.applyTheme(this, ThemeManager.getSavedTheme(this))
+            setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

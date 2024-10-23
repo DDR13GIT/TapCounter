@@ -32,4 +32,18 @@
     <string name="vibration_Control_summary_on">Tap again to disable vibration</string>
     <string name="vibration_Control_summary_off">"Tap to enable vibration "</string>
     <string name="rate_us_on_play_store">Rate us on Play Store</string>
+    <string name="theme_title">Color Theme</string>
+    <string name="theme_summary">Choose the app\'s color theme</string>
+    <string-array name="theme_entries">
+        <item>Green</item>
+        <item>Blue</item>
+        <item>Yellow</item>
+        <item>Purple</item>
+    </string-array>
+    <string-array name="theme_values">
+        <item>GREEN</item>
+        <item>BLUE</item>
+        <item>YELLOW</item>
+        <item>PURPLE</item>
+    </string-array>
 </resources>
