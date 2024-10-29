@@ -1,42 +1,60 @@
-package com.ddroy.tapcounter
+package com.ddroy.tapcounter.ui
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.Fragment
+import android.view.View
+import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
-import androidx.preference.ListPreference
-import com.ddroy.tapcounter.databinding.SettingsActivityBinding
+import com.ddroy.tapcounter.BaseActivity
+import com.ddroy.tapcounter.R
+import com.ddroy.tapcounter.constants.ThemeConstants.THEME_BLUE
+import com.ddroy.tapcounter.constants.ThemeConstants.THEME_PINK
+import com.ddroy.tapcounter.databinding.FragmentSettingsBinding
 import com.ddroy.tapcounter.utils.PreferenceKeys
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
-    private lateinit var binding: SettingsActivityBinding
+    private lateinit var binding: FragmentSettingsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = SettingsActivityBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    }
 
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        binding = FragmentSettingsBinding.bind(view)
+        super.onViewCreated(view, savedInstanceState)
+
+      /*  binding.click.setOnClickListener{
+            (activity as? BaseActivity)?.savePreference(THEME_BLUE)
+
+
+        }
+        binding.click2.setOnClickListener{
+            (activity as? BaseActivity)?.savePreference(THEME_PINK)
+
+
+        }*/
         if (savedInstanceState == null) {
-            supportFragmentManager
+            childFragmentManager
                 .beginTransaction()
-                .replace(R.id.settings, SettingsFragment1())
+                .replace(R.id.settings, SettingsFragment2())
                 .commit()
         }
-
-        setSupportActionBar(binding.topAppBar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.rateAppBtn.setOnClickListener {
             rateApp()
         }
+
     }
 
+
     private fun rateApp() {
-        val packageName = packageName
+        val packageName = activity?.packageName
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName"))
         try {
             startActivity(intent)
@@ -47,7 +65,7 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    class SettingsFragment1 : PreferenceFragmentCompat() {
+    class SettingsFragment2 : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
@@ -89,12 +107,15 @@ class SettingsActivity : AppCompatActivity() {
         private fun setupThemePreference() {
             findPreference<ListPreference>(PreferenceKeys.PREF_THEME)?.setOnPreferenceChangeListener { _, newValue ->
                 when (newValue) {
-                    "Dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    "Light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                    "Dark" ->  (activity as? BaseActivity)?.savePreference(THEME_BLUE)
+                    "Light" ->  (activity as? BaseActivity)?.savePreference(THEME_PINK)
+
+                    else -> (activity as? BaseActivity)?.savePreference(THEME_PINK)
                 }
                 true
             }
         }
     }
+
+
 }

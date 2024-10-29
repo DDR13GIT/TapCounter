@@ -1,0 +1,110 @@
+package com.ddroy.tapcounter.ui
+
+import android.content.Context
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.View
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
+import com.ddroy.tapcounter.R
+import com.ddroy.tapcounter.databinding.FragmentCountingBinding
+import com.ddroy.tapcounter.utils.ScreenManager
+import com.ddroy.tapcounter.utils.SoundManager
+import com.ddroy.tapcounter.utils.VibrationManager
+import com.ddroy.tapcounter.viewmodel.CounterViewModel
+import com.ddroy.tapcounter.navigation.Navigation
+
+
+class CountingFragment : Fragment(R.layout.fragment_counting) {
+
+    private lateinit var binding: FragmentCountingBinding
+    private val viewModel: CounterViewModel by activityViewModels()
+    private lateinit var vibrationManager: VibrationManager
+    private lateinit var screenManager: ScreenManager
+
+    private val fragmentInstance = this
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+//        soundManager = SoundManager(context)
+//        vibrationManager = VibrationManager(context)
+//        screenManager = ScreenManager(activity)
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        binding = FragmentCountingBinding.bind(view)
+        super.onViewCreated(view, savedInstanceState)
+
+        setupUI()
+        observeViewModel()
+
+    }
+    private fun setupUI() {
+        binding.apply {
+            imageView3.setOnClickListener { viewModel.incrementCount() }
+            decreaseCountBtn.setOnClickListener { viewModel.decrementCount() }
+            resetBtn.setOnClickListener { viewModel.resetCount() }
+            lockBtn.setOnClickListener { viewModel.toggleLock() }
+            topAppBar.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.settings -> {
+                        Toast.makeText(context, "dsd", Toast.LENGTH_SHORT).show()
+                        //(activity as? BaseActivity)?.savePreference(THEME_PINK)
+                        Navigation.navigate(fragmentInstance,null,R.id.settingsFragment)
+//                        startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.count.observe(viewLifecycleOwner) { count ->
+            binding.countTxt.text = count.toString()
+            animateCountText()
+        }
+
+        viewModel.isLocked.observe(viewLifecycleOwner) { isLocked ->
+            binding.lockBtn.setIconResource(
+                if (isLocked) R.drawable.ic_lock_closed
+                else R.drawable.ic_lock_open
+            )
+        }
+
+        viewModel.playSound.observe(viewLifecycleOwner) { shouldPlay ->
+            //if (shouldPlay) soundManager.playSound()
+        }
+//
+        viewModel.vibrate.observe(viewLifecycleOwner) { shouldVibrate ->
+//            if (shouldVibrate) vibrationManager.vibrate()
+        }
+    }
+
+    private fun animateCountText() {
+        binding.countTxt.apply {
+            scaleX = 0.7f
+            scaleY = 0.7f
+            animate().scaleX(1f).scaleY(1f).setDuration(500).start()
+        }
+    }
+    override fun onResume() {
+        super.onResume()
+//        screenManager.keepScreenOn(viewModel.isScreenOnEnabled())
+    }
+
+
+    override fun onDestroy() {
+      //  soundManager.release()
+        super.onDestroy()
+    }
+
+}

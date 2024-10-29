@@ -27,4 +27,9 @@
     <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
     <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
 </style>
+  <!-- Base application theme. -->
+    <style name="Base.Base.Theme.TapCounter" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    </style>
 </resources>
