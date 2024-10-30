@@ -7,14 +7,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
-import com.ddroy.tapcounter.utils.PreferenceKeys
+import com.ddroy.tapcounter.sharedPreference.PreferenceKeys
 import com.ddroy.tapcounter.utils.SoundManager
 
 class CounterViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(application)
-
-    private var mediaPlayer: SoundManager = SoundManager(application)
     private val _count = MutableLiveData<Int>()
     val count: LiveData<Int> = _count
 
@@ -27,6 +24,11 @@ class CounterViewModel(application: Application) : AndroidViewModel(application)
     private val _vibrate = MutableLiveData<Boolean>()
     val vibrate: LiveData<Boolean> = _vibrate
 
+
+    private val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(application)
+    private var mediaPlayer: SoundManager = SoundManager(application)
+
+
     init {
         _count.value = prefs.getInt(PREF_COUNT, 0)
         _isLocked.value = false
@@ -38,7 +40,7 @@ class CounterViewModel(application: Application) : AndroidViewModel(application)
             _count.value = (_count.value ?: 0) + 1
             updatePreferences()
             triggerEffects()
-            if(prefs.getBoolean(PreferenceKeys.PREF_SOUND_ENABLED, false)) mediaPlayer.playMusic()
+            if(isMusicPlayable()) mediaPlayer.playMusic()
         }
     }
 
@@ -47,8 +49,12 @@ class CounterViewModel(application: Application) : AndroidViewModel(application)
             _count.value = (_count.value ?: 0) - 1
             updatePreferences()
             triggerEffects()
-            if(prefs.getBoolean(PreferenceKeys.PREF_SOUND_ENABLED, false)) mediaPlayer.playMusic()
+            if(isMusicPlayable()) mediaPlayer.playMusic()
         }
+    }
+
+    private fun isMusicPlayable() : Boolean{
+        return prefs.getBoolean(PreferenceKeys.PREF_SOUND_ENABLED, false)
     }
 
     fun resetCount() {
@@ -81,12 +87,12 @@ class CounterViewModel(application: Application) : AndroidViewModel(application)
     }
 
     private fun triggerEffects() {
-        //i think we don't need this
+        //i think we don't need this ~ now viewmodel can handle the music manager . So observer is not needed
         _playSound.value = prefs.getBoolean(PreferenceKeys.PREF_SOUND_ENABLED, false)
         _vibrate.value = prefs.getBoolean(PreferenceKeys.PREF_VIBRATION_ENABLED, false)
     }
    override fun onCleared() {
-        mediaPlayer.release() // Release media player resources when ViewModel is cleared
+        mediaPlayer.release()
         super.onCleared()
     }
 

@@ -1,4 +1,4 @@
-package com.ddroy.tapcounter.utils
+package com.ddroy.tapcounter.sharedPreference
 
 object PreferenceKeys {
     const val PREF_VIBRATION_ENABLED = "vibration_switch_key"

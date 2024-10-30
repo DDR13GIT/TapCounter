@@ -13,7 +13,7 @@ import com.ddroy.tapcounter.R
 import com.ddroy.tapcounter.constants.ThemeConstants.THEME_BLUE
 import com.ddroy.tapcounter.constants.ThemeConstants.THEME_PINK
 import com.ddroy.tapcounter.databinding.FragmentSettingsBinding
-import com.ddroy.tapcounter.utils.PreferenceKeys
+import com.ddroy.tapcounter.sharedPreference.PreferenceKeys
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 

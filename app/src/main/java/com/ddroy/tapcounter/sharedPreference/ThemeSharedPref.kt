@@ -1,7 +1,8 @@
-package com.ddroy.tapcounter.constants
+package com.ddroy.tapcounter.sharedPreference
 import android.content.Context
+import com.ddroy.tapcounter.constants.ThemeConstants
 
-object Shar {
+object ThemeSharedPref {
 
     private const val PREFS_NAME = "theme_prefs"
     private const val KEY_THEME = "selected_theme"

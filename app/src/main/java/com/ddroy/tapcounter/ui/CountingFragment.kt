@@ -4,13 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import com.ddroy.tapcounter.R
 import com.ddroy.tapcounter.databinding.FragmentCountingBinding
 import com.ddroy.tapcounter.utils.ScreenManager
-import com.ddroy.tapcounter.utils.SoundManager
 import com.ddroy.tapcounter.utils.VibrationManager
 import com.ddroy.tapcounter.viewmodel.CounterViewModel
 import com.ddroy.tapcounter.navigation.Navigation
@@ -54,10 +51,7 @@ class CountingFragment : Fragment(R.layout.fragment_counting) {
             topAppBar.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.settings -> {
-                        Toast.makeText(context, "dsd", Toast.LENGTH_SHORT).show()
-                        //(activity as? BaseActivity)?.savePreference(THEME_PINK)
                         Navigation.navigate(fragmentInstance,null,R.id.settingsFragment)
-//                        startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
                         true
                     }
 
