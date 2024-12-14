@@ -3,13 +3,11 @@
         <item>Green</item>
         <item>Pink</item>
         <item>Blue</item>
-        <item>System Default</item>
     </string-array>
 
     <string-array name="theme_values">
         <item>Green</item>
         <item>Pink</item>
         <item>Blue</item>
-        <item>System_Default</item>
     </string-array>
 </resources>

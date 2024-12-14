@@ -49,7 +49,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:shapeAppearance="?attr/shapeAppearanceSmallComponent"
-        android:drawableLeft="@drawable/google_play__1_"
+        android:drawableStart="@drawable/google_play__1_"
         android:text="@string/rate_us_on_play_store" />
 
 
