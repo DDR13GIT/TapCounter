@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
@@ -15,6 +16,7 @@ import com.ddroy.tapcounter.constants.ThemeConstants.THEME_GREEN
 import com.ddroy.tapcounter.constants.ThemeConstants.THEME_PINK
 import com.ddroy.tapcounter.databinding.FragmentSettingsBinding
 import com.ddroy.tapcounter.sharedPreference.PreferenceKeys
+import com.google.android.material.appbar.MaterialToolbar
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
@@ -51,6 +53,10 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             rateApp()
         }
 
+        val toolbar = view.findViewById<MaterialToolbar>(R.id.topAppBar)
+        toolbar.setNavigationOnClickListener {
+            findNavController().navigate(R.id.countingFragment)
+        }
     }
 
 
