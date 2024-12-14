@@ -21,7 +21,7 @@ open class BaseActivity : AppCompatActivity() {
     private fun applyTheme() {
         val theme = ThemeSharedPref.getTheme(this)
         when (theme) {
-            THEME_PINK -> setTheme(R.style.AppTheme)
+            THEME_PINK -> setTheme(R.style.Pink_Theme_TapCounter)
             THEME_GREEN -> setTheme(R.style.Base_Theme_TapCounter)
             THEME_BLUE -> setTheme(R.style.Blue_Theme_TapCounter)
         }

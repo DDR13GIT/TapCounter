@@ -49,7 +49,7 @@
         <item name="colorSurfaceContainerHighest">@color/green_theme_surfaceContainerHighest</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Pink.Theme.TapCounter" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/pink_theme_primary</item>
         <item name="colorOnPrimary">@color/pink_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/pink_theme_primaryContainer</item>
