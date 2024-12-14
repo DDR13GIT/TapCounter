@@ -5,6 +5,7 @@ import android.view.KeyEvent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.ddroy.tapcounter.constants.ThemeConstants.THEME_BLUE
+import com.ddroy.tapcounter.constants.ThemeConstants.THEME_GREEN
 import com.ddroy.tapcounter.constants.ThemeConstants.THEME_PINK
 import com.ddroy.tapcounter.sharedPreference.ThemeSharedPref
 import com.ddroy.tapcounter.viewmodel.CounterViewModel
@@ -21,7 +22,7 @@ open class BaseActivity : AppCompatActivity() {
         val theme = ThemeSharedPref.getTheme(this)
         when (theme) {
             THEME_PINK -> setTheme(R.style.AppTheme)
-            THEME_BLUE -> setTheme(R.style.Base_Theme_TapCounter)
+            THEME_GREEN -> setTheme(R.style.Base_Theme_TapCounter)
         }
     }
 

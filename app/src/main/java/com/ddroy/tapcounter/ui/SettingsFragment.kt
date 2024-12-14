@@ -11,6 +11,7 @@ import androidx.preference.SwitchPreferenceCompat
 import com.ddroy.tapcounter.BaseActivity
 import com.ddroy.tapcounter.R
 import com.ddroy.tapcounter.constants.ThemeConstants.THEME_BLUE
+import com.ddroy.tapcounter.constants.ThemeConstants.THEME_GREEN
 import com.ddroy.tapcounter.constants.ThemeConstants.THEME_PINK
 import com.ddroy.tapcounter.databinding.FragmentSettingsBinding
 import com.ddroy.tapcounter.sharedPreference.PreferenceKeys
@@ -107,8 +108,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         private fun setupThemePreference() {
             findPreference<ListPreference>(PreferenceKeys.PREF_THEME)?.setOnPreferenceChangeListener { _, newValue ->
                 when (newValue) {
-                    "Dark" ->  (activity as? BaseActivity)?.savePreference(THEME_BLUE)
-                    "Light" ->  (activity as? BaseActivity)?.savePreference(THEME_PINK)
+                    "Green" ->  (activity as? BaseActivity)?.savePreference(THEME_GREEN)
+                    "Pink" ->  (activity as? BaseActivity)?.savePreference(THEME_PINK)
 
                     else -> (activity as? BaseActivity)?.savePreference(THEME_PINK)
                 }

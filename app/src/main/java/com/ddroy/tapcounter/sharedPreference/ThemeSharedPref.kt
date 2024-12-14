@@ -9,7 +9,7 @@ object ThemeSharedPref {
 
     fun getTheme(context: Context): String {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        return prefs.getString(KEY_THEME, ThemeConstants.THEME_BLUE)?: ThemeConstants.THEME_PINK
+        return prefs.getString(KEY_THEME, ThemeConstants.THEME_GREEN)?: ThemeConstants.THEME_PINK
     }
 
     fun setTheme(context: Context,theme: String){

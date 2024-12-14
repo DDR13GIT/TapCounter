@@ -82,16 +82,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         app:srcCompat="@drawable/clove_shape"
-        app:tint="@color/md_theme_light_inversePrimary" />
-
+        app:tint="?attr/colorPrimaryInverse"/>
     <TextView
         android:id="@+id/countTxt"
         android:layout_width="0dp"
         android:layout_height="265dp"
         android:gravity="center"
         android:text="0"
+        android:textColor="?android:attr/textColorLink"
         android:textAlignment="center"
-        android:textColor="@color/md_theme_dark_inversePrimary"
         android:textSize="150sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
