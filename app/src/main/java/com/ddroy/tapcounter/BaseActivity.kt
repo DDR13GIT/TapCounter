@@ -23,6 +23,7 @@ open class BaseActivity : AppCompatActivity() {
         when (theme) {
             THEME_PINK -> setTheme(R.style.AppTheme)
             THEME_GREEN -> setTheme(R.style.Base_Theme_TapCounter)
+            THEME_BLUE -> setTheme(R.style.Blue_Theme_TapCounter)
         }
     }
 

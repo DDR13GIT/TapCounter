@@ -110,7 +110,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                 when (newValue) {
                     "Green" ->  (activity as? BaseActivity)?.savePreference(THEME_GREEN)
                     "Pink" ->  (activity as? BaseActivity)?.savePreference(THEME_PINK)
-
+                    "Blue" ->  (activity as? BaseActivity)?.savePreference(THEME_BLUE)
                     else -> (activity as? BaseActivity)?.savePreference(THEME_PINK)
                 }
                 true
