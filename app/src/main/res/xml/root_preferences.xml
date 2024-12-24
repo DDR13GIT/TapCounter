@@ -53,7 +53,8 @@
             android:defaultValue="false"
             android:key="loop_mode_enabled"
             android:title="Enable Loop Mode"
-            android:summary="Trigger effects every N taps" />
+            android:summary="Trigger effects every N taps"
+            app:icon="@drawable/round_refresh_24" />
 
         <EditTextPreference
             android:defaultValue="50"

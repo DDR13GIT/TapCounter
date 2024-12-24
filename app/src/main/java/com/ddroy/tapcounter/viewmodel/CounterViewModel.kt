@@ -102,6 +102,11 @@ class CounterViewModel(application: Application) : AndroidViewModel(application)
         _playSound.value = prefs.getBoolean(PreferenceKeys.PREF_SOUND_ENABLED, false)
         _vibrate.value = prefs.getBoolean(PreferenceKeys.PREF_VIBRATION_ENABLED, false)
     }
+    
+    fun resetConfettiState() {
+        _showConfetti.value = false
+    }
+    
    override fun onCleared() {
         mediaPlayer.release()
         super.onCleared()

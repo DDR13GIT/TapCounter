@@ -33,16 +33,15 @@ class CountingFragment : Fragment(R.layout.fragment_counting) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-//        soundManager = SoundManager(context)
-//        vibrationManager = VibrationManager(context)
-//        screenManager = ScreenManager(activity)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         binding = FragmentCountingBinding.bind(view)
         super.onViewCreated(view, savedInstanceState)
+
+        // Initialize vibrationManager here instead of onAttach
+        vibrationManager = VibrationManager(requireContext())
 
         setupUI()
         observeViewModel()
@@ -57,6 +56,7 @@ class CountingFragment : Fragment(R.layout.fragment_counting) {
             topAppBar.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.settings -> {
+                        viewModel.resetConfettiState()  // Add this line
                         Navigation.navigate(fragmentInstance,null,R.id.settingsFragment)
                         true
                     }
@@ -83,9 +83,9 @@ class CountingFragment : Fragment(R.layout.fragment_counting) {
         viewModel.playSound.observe(viewLifecycleOwner) { shouldPlay ->
             //if (shouldPlay) soundManager.playSound()
         }
-//
+
         viewModel.vibrate.observe(viewLifecycleOwner) { shouldVibrate ->
-//            if (shouldVibrate) vibrationManager.vibrate()
+            if (shouldVibrate) vibrationManager.vibrate()
         }
 
         viewModel.showConfetti.observe(viewLifecycleOwner) { shouldShow ->
@@ -120,10 +120,12 @@ class CountingFragment : Fragment(R.layout.fragment_counting) {
             damping = 0.9f,
             spread = 360,
             colors = listOf(0xfce18a, 0xff726d, 0xf4306d, 0xb48def).map { it.toInt() },
-            emitter = Emitter(duration = 100, TimeUnit.MILLISECONDS).max(100),
-            position = Position.Relative(0.5, 0.3)
+            emitter = Emitter(duration = 300, TimeUnit.MILLISECONDS).max(100),
+            position = Position.Relative(0.5, 0.5)  // Center of screen
         )
-        binding.konfettiView.start(party)
+        binding.konfettiView.post {
+            binding.konfettiView.start(party)
+        }
     }
 
 }
