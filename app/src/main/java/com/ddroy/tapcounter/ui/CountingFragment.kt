@@ -11,6 +11,12 @@ import com.ddroy.tapcounter.utils.ScreenManager
 import com.ddroy.tapcounter.utils.VibrationManager
 import com.ddroy.tapcounter.viewmodel.CounterViewModel
 import com.ddroy.tapcounter.navigation.Navigation
+import androidx.preference.PreferenceManager
+import com.ddroy.tapcounter.sharedPreference.PreferenceKeys
+import nl.dionsegijn.konfetti.core.Party
+import nl.dionsegijn.konfetti.core.Position
+import nl.dionsegijn.konfetti.core.emitter.Emitter
+import java.util.concurrent.TimeUnit
 
 
 class CountingFragment : Fragment(R.layout.fragment_counting) {
@@ -81,6 +87,12 @@ class CountingFragment : Fragment(R.layout.fragment_counting) {
         viewModel.vibrate.observe(viewLifecycleOwner) { shouldVibrate ->
 //            if (shouldVibrate) vibrationManager.vibrate()
         }
+
+        viewModel.showConfetti.observe(viewLifecycleOwner) { shouldShow ->
+            if (shouldShow) {
+                showConfetti()
+            }
+        }
     }
 
     private fun animateCountText() {
@@ -99,6 +111,19 @@ class CountingFragment : Fragment(R.layout.fragment_counting) {
     override fun onDestroy() {
       //  soundManager.release()
         super.onDestroy()
+    }
+
+    private fun showConfetti() {
+        val party = Party(
+            speed = 0f,
+            maxSpeed = 30f,
+            damping = 0.9f,
+            spread = 360,
+            colors = listOf(0xfce18a, 0xff726d, 0xf4306d, 0xb48def).map { it.toInt() },
+            emitter = Emitter(duration = 100, TimeUnit.MILLISECONDS).max(100),
+            position = Position.Relative(0.5, 0.3)
+        )
+        binding.konfettiView.start(party)
     }
 
 }

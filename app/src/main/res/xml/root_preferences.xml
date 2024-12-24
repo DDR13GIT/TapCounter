@@ -47,6 +47,24 @@
             android:title="Theme" />
 
     </PreferenceCategory>
+
+    <PreferenceCategory android:title="Loop Mode">
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="loop_mode_enabled"
+            android:title="Enable Loop Mode"
+            android:summary="Trigger effects every N taps" />
+
+        <EditTextPreference
+            android:defaultValue="50"
+            android:key="loop_number"
+            android:title="Loop Interval"
+            android:summary="Trigger effects every N taps"
+            android:dependency="loop_mode_enabled"
+            android:inputType="number"
+            android:maxLength="3" />
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="Other">
         <Preference
             android:key="about_preference"

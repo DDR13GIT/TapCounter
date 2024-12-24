@@ -112,4 +112,9 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="83dp" />
 
+    <nl.dionsegijn.konfetti.xml.KonfettiView
+        android:id="@+id/konfettiView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
+import androidx.preference.EditTextPreference
+import android.text.InputFilter
+import android.text.InputType
+import android.widget.Toast
 import com.ddroy.tapcounter.BaseActivity
 import com.ddroy.tapcounter.R
 import com.ddroy.tapcounter.constants.ThemeConstants.THEME_BLUE
@@ -81,6 +85,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             setupVolumeButtonPreference()
             setupScreenOnPreference()
             setupThemePreference()
+            setupLoopModePreference()
         }
 
         private fun setupVibrationPreference() {
@@ -122,7 +127,27 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                 true
             }
         }
+
+        private fun setupLoopModePreference() {
+            findPreference<SwitchPreferenceCompat>(PreferenceKeys.PREF_LOOP_MODE_ENABLED)?.setOnPreferenceChangeListener { _, newValue ->
+                true
+            }
+
+            findPreference<EditTextPreference>(PreferenceKeys.PREF_LOOP_NUMBER)?.apply {
+                setOnBindEditTextListener { editText ->
+                    editText.inputType = InputType.TYPE_CLASS_NUMBER
+                    editText.filters = arrayOf(InputFilter.LengthFilter(3))
+                }
+                setOnPreferenceChangeListener { _, newValue ->
+                    val number = (newValue as String).toIntOrNull()
+                    if (number != null && number in 1..999) {
+                        true
+                    } else {
+                        Toast.makeText(context, "Please enter a number between 1 and 999", Toast.LENGTH_SHORT).show()
+                        false
+                    }
+                }
+            }
+        }
     }
-
-
 }

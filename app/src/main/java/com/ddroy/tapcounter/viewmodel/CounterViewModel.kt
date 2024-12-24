@@ -24,6 +24,8 @@ class CounterViewModel(application: Application) : AndroidViewModel(application)
     private val _vibrate = MutableLiveData<Boolean>()
     val vibrate: LiveData<Boolean> = _vibrate
 
+    private val _showConfetti = MutableLiveData<Boolean>()
+    val showConfetti: LiveData<Boolean> = _showConfetti
 
     private val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(application)
     private var mediaPlayer: SoundManager = SoundManager(application)
@@ -41,6 +43,15 @@ class CounterViewModel(application: Application) : AndroidViewModel(application)
             updatePreferences()
             triggerEffects()
             if(isMusicPlayable()) mediaPlayer.playMusic()
+
+            // Check for loop milestone
+            val loopEnabled = prefs.getBoolean(PreferenceKeys.PREF_LOOP_MODE_ENABLED, false)
+            if (loopEnabled) {
+                val loopNumber = prefs.getString(PreferenceKeys.PREF_LOOP_NUMBER, "50")?.toIntOrNull() ?: 50
+                if (_count.value!! % loopNumber == 0) {
+                    _showConfetti.value = true
+                }
+            }
         }
     }
 

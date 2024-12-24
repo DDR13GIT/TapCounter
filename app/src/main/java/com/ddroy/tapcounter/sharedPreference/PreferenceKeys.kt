@@ -6,4 +6,6 @@ object PreferenceKeys {
     const val PREF_VOLUME_ENABLED = "volume_switch_key"
     const val PREF_SCREEN_ON = "screenOn_switch_key"
     const val PREF_THEME = "theme_preference"
+    const val PREF_LOOP_MODE_ENABLED = "loop_mode_enabled"
+    const val PREF_LOOP_NUMBER = "loop_number"
 }
