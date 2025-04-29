@@ -20,12 +20,6 @@ class CounterViewModel(application: Application) : AndroidViewModel(application)
     private val _isLocked = MutableLiveData<Boolean>()
     val isLocked: LiveData<Boolean> = _isLocked
 
-    private val _playSound = MutableLiveData<Boolean>()
-    val playSound: LiveData<Boolean> = _playSound
-
-    private val _vibrate = MutableLiveData<Boolean>()
-    val vibrate: LiveData<Boolean> = _vibrate
-
     private val _showConfetti = MutableLiveData<Boolean>()
     val showConfetti: LiveData<Boolean> = _showConfetti
 
@@ -98,19 +92,11 @@ class CounterViewModel(application: Application) : AndroidViewModel(application)
         }
         return true
     }
-
-    fun isScreenOnEnabled(): Boolean = prefs.getBoolean(PreferenceKeys.PREF_SCREEN_ON, false)
-
+    
     private fun updatePreferences() {
         prefs.edit() { putInt(PREF_COUNT, _count.value ?: 0) }
     }
 
-    private fun triggerEffects() {
-        //i think we don't need this ~ now viewmodel can handle the music manager . So observer is not needed
-        _playSound.value = prefs.getBoolean(PreferenceKeys.PREF_SOUND_ENABLED, false)
-        _vibrate.value = prefs.getBoolean(PreferenceKeys.PREF_VIBRATION_ENABLED, false)
-    }
-    
     fun resetConfettiState() {
         _showConfetti.value = false
     }

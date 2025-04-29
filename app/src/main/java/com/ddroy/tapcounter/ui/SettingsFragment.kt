@@ -22,6 +22,7 @@ import com.ddroy.tapcounter.databinding.FragmentSettingsBinding
 import com.ddroy.tapcounter.sharedPreference.PreferenceKeys
 import com.ddroy.tapcounter.utils.ScreenManager
 import com.google.android.material.appbar.MaterialToolbar
+import androidx.core.net.toUri
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
@@ -52,12 +53,12 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     private fun rateApp() {
         val packageName = activity?.packageName
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName"))
+        val intent = Intent(Intent.ACTION_VIEW, "market://details?id=$packageName".toUri())
         try {
             startActivity(intent)
         } catch (e: Exception) {
             // If Play Store app is not available, open the Play Store website
-            val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$packageName"))
+            val webIntent = Intent(Intent.ACTION_VIEW, "https://play.google.com/store/apps/details?id=$packageName".toUri())
             startActivity(webIntent)
         }
     }
