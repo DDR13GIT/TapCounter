@@ -47,6 +47,7 @@
         <item name="colorSurfaceContainer">@color/green_theme_surfaceContainer</item>
         <item name="colorSurfaceContainerHigh">@color/green_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/green_theme_surfaceContainerHighest</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Pink.Theme.TapCounter" parent="Theme.Material3.DayNight.NoActionBar">
@@ -96,6 +97,7 @@
         <item name="colorSurfaceContainer">@color/pink_theme_surfaceContainer</item>
         <item name="colorSurfaceContainerHigh">@color/pink_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/pink_theme_surfaceContainerHighest</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Blue.Theme.TapCounter" parent="Theme.Material3.DayNight.NoActionBar">
@@ -145,6 +147,7 @@
         <item name="colorSurfaceContainer">@color/blue_theme_surfaceContainer</item>
         <item name="colorSurfaceContainerHigh">@color/blue_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/blue_theme_surfaceContainerHighest</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
     <!-- Base application theme. -->
     <style name="Base.Base.Theme.TapCounter" parent="Theme.Material3.DayNight.NoActionBar">
