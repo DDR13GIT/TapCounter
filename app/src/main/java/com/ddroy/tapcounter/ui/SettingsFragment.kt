@@ -20,6 +20,7 @@ import com.ddroy.tapcounter.constants.ThemeConstants.THEME_GREEN
 import com.ddroy.tapcounter.constants.ThemeConstants.THEME_PINK
 import com.ddroy.tapcounter.databinding.FragmentSettingsBinding
 import com.ddroy.tapcounter.sharedPreference.PreferenceKeys
+import com.ddroy.tapcounter.utils.ScreenManager
 import com.google.android.material.appbar.MaterialToolbar
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
@@ -112,6 +113,12 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         private fun setupScreenOnPreference() {
             findPreference<SwitchPreferenceCompat>(PreferenceKeys.PREF_SCREEN_ON)?.setOnPreferenceChangeListener { _, newValue ->
                 // Handle screen on preference change if needed
+                if(newValue==true){
+                    ScreenManager(activity).keepScreenOn(true)
+                }else{
+                    ScreenManager(activity).keepScreenOn(false)
+                }
+
                 true
             }
         }
