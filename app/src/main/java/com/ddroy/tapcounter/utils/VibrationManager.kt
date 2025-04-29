@@ -1,5 +1,3 @@
-package com.ddroy.tapcounter.utils
-
 import android.content.Context
 import android.os.Build
 import android.os.VibrationEffect
@@ -7,19 +5,37 @@ import android.os.Vibrator
 import android.os.VibratorManager
 
 class VibrationManager(private val context: Context) {
-    private val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-        (context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager).defaultVibrator
-    } else {
-        @Suppress("DEPRECATION")
-        context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+
+    // Method for a simple vibration
+    fun vibrate(milliseconds: Long) {
+        val vibrator = getVibrator()
+
+        // Check if device has vibrator
+        if (!vibrator.hasVibrator()) return
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // For Android 8.0 (API 26) and above
+            vibrator.vibrate(VibrationEffect.createOneShot(
+                milliseconds,
+                VibrationEffect.DEFAULT_AMPLITUDE
+            ))
+        } else {
+            // Deprecated in API 26
+            @Suppress("DEPRECATION")
+            vibrator.vibrate(milliseconds)
+        }
     }
 
-    fun vibrate() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
+    // Helper method to get the vibrator service based on API level
+    private fun getVibrator(): Vibrator {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            // For Android 12 (API 31) and above
+            val vibratorManager = context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            vibratorManager.defaultVibrator
         } else {
+            // For Android 11 (API 30) and below
             @Suppress("DEPRECATION")
-            vibrator.vibrate(50)
+            context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         }
     }
 }

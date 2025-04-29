@@ -1,5 +1,6 @@
 package com.ddroy.tapcounter.ui
 
+import VibrationManager
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +9,6 @@ import androidx.fragment.app.activityViewModels
 import com.ddroy.tapcounter.R
 import com.ddroy.tapcounter.databinding.FragmentCountingBinding
 import com.ddroy.tapcounter.utils.ScreenManager
-import com.ddroy.tapcounter.utils.VibrationManager
 import com.ddroy.tapcounter.viewmodel.CounterViewModel
 import com.ddroy.tapcounter.navigation.Navigation
 import androidx.preference.PreferenceManager
@@ -85,7 +85,7 @@ class CountingFragment : Fragment(R.layout.fragment_counting) {
         }
 
         viewModel.vibrate.observe(viewLifecycleOwner) { shouldVibrate ->
-            if (shouldVibrate) vibrationManager.vibrate()
+           // if (shouldVibrate) vibrationManager.vibrate()
         }
 
         viewModel.showConfetti.observe(viewLifecycleOwner) { shouldShow ->
