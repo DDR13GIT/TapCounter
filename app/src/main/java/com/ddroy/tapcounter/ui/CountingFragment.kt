@@ -1,14 +1,12 @@
 package com.ddroy.tapcounter.ui
 
 import VibrationManager
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import com.ddroy.tapcounter.R
 import com.ddroy.tapcounter.databinding.FragmentCountingBinding
-import com.ddroy.tapcounter.utils.ScreenManager
 import com.ddroy.tapcounter.viewmodel.CounterViewModel
 import com.ddroy.tapcounter.navigation.Navigation
 import nl.dionsegijn.konfetti.core.Party
@@ -90,7 +88,7 @@ class CountingFragment : Fragment(R.layout.fragment_counting) {
             maxSpeed = 30f,
             damping = 0.9f,
             spread = 360,
-            colors = listOf(0xfce18a, 0xff726d, 0xf4306d, 0xb48def).map { it.toInt() },
+            colors = listOf(0xfce18a, 0xff726d, 0xf4306d, 0xb48def).map { it },
             emitter = Emitter(duration = 300, TimeUnit.MILLISECONDS).max(100),
             position = Position.Relative(0.5, 0.5)  // Center of screen
         )

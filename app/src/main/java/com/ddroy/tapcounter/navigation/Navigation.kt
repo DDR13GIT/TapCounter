@@ -2,14 +2,8 @@ package com.ddroy.tapcounter.navigation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.navigation.NavController
-import androidx.navigation.NavGraph
-import androidx.navigation.NavInflater
 import androidx.navigation.NavOptions
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import com.ddroy.tapcounter.R
 
 object Navigation {
 
