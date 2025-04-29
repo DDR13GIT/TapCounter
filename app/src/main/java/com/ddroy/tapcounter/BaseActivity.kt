@@ -1,5 +1,7 @@
 package com.ddroy.tapcounter
 
+import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.KeyEvent
 import androidx.activity.viewModels
@@ -13,8 +15,10 @@ import com.ddroy.tapcounter.viewmodel.CounterViewModel
 open class BaseActivity : AppCompatActivity() {
 
     private val viewModel: CounterViewModel by viewModels()
+    @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         applyTheme()
     }
 
