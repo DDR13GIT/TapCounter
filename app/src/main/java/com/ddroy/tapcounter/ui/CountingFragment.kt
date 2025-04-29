@@ -11,8 +11,6 @@ import com.ddroy.tapcounter.databinding.FragmentCountingBinding
 import com.ddroy.tapcounter.utils.ScreenManager
 import com.ddroy.tapcounter.viewmodel.CounterViewModel
 import com.ddroy.tapcounter.navigation.Navigation
-import androidx.preference.PreferenceManager
-import com.ddroy.tapcounter.sharedPreference.PreferenceKeys
 import nl.dionsegijn.konfetti.core.Party
 import nl.dionsegijn.konfetti.core.Position
 import nl.dionsegijn.konfetti.core.emitter.Emitter
@@ -24,16 +22,7 @@ class CountingFragment : Fragment(R.layout.fragment_counting) {
     private lateinit var binding: FragmentCountingBinding
     private val viewModel: CounterViewModel by activityViewModels()
     private lateinit var vibrationManager: VibrationManager
-    private lateinit var screenManager: ScreenManager
-
     private val fragmentInstance = this
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -80,14 +69,6 @@ class CountingFragment : Fragment(R.layout.fragment_counting) {
             )
         }
 
-        viewModel.playSound.observe(viewLifecycleOwner) { shouldPlay ->
-            //if (shouldPlay) soundManager.playSound()
-        }
-
-        viewModel.vibrate.observe(viewLifecycleOwner) { shouldVibrate ->
-           // if (shouldVibrate) vibrationManager.vibrate()
-        }
-
         viewModel.showConfetti.observe(viewLifecycleOwner) { shouldShow ->
             if (shouldShow) {
                 showConfetti()
@@ -101,16 +82,6 @@ class CountingFragment : Fragment(R.layout.fragment_counting) {
             scaleY = 0.7f
             animate().scaleX(1f).scaleY(1f).setDuration(500).start()
         }
-    }
-    override fun onResume() {
-        super.onResume()
-//        screenManager.keepScreenOn(viewModel.isScreenOnEnabled())
-    }
-
-
-    override fun onDestroy() {
-      //  soundManager.release()
-        super.onDestroy()
     }
 
     private fun showConfetti() {
@@ -127,5 +98,4 @@ class CountingFragment : Fragment(R.layout.fragment_counting) {
             binding.konfettiView.start(party)
         }
     }
-
 }

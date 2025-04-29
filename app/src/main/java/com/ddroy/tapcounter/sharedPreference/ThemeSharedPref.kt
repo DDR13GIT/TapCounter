@@ -1,6 +1,7 @@
 package com.ddroy.tapcounter.sharedPreference
 import android.content.Context
 import com.ddroy.tapcounter.constants.ThemeConstants
+import androidx.core.content.edit
 
 object ThemeSharedPref {
 
@@ -14,6 +15,6 @@ object ThemeSharedPref {
 
     fun setTheme(context: Context,theme: String){
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        prefs.edit().putString(KEY_THEME,theme).apply()
+        prefs.edit() { putString(KEY_THEME, theme) }
     }
 }

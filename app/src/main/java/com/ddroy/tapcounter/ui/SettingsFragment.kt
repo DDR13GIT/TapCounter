@@ -27,26 +27,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     private lateinit var binding: FragmentSettingsBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         binding = FragmentSettingsBinding.bind(view)
         super.onViewCreated(view, savedInstanceState)
 
-      /*  binding.click.setOnClickListener{
-            (activity as? BaseActivity)?.savePreference(THEME_BLUE)
-
-
-        }
-        binding.click2.setOnClickListener{
-            (activity as? BaseActivity)?.savePreference(THEME_PINK)
-
-
-        }*/
         if (savedInstanceState == null) {
             childFragmentManager
                 .beginTransaction()

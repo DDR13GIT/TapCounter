@@ -32,10 +32,11 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     private fun screenOn() {
-        if (isScreenOnEnabled())
-        ScreenManager(this).keepScreenOn(true)
-        else
+        if (isScreenOnEnabled()){
+            ScreenManager(this).keepScreenOn(true)
+        } else {
             ScreenManager(this).keepScreenOn(false)
+        }
     }
 
     private fun isScreenOnEnabled(): Boolean = prefs.getBoolean(PreferenceKeys.PREF_SCREEN_ON, false)
