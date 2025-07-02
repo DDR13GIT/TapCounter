@@ -9,9 +9,6 @@
         android:name="com.ddroy.tapcounter.ui.CountingFragment"
         android:label="fragment_counting"
         tools:layout="@layout/fragment_counting" >
-        <action
-            android:id="@+id/action_countingFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"

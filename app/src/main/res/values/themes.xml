@@ -29,6 +29,7 @@
         <item name="colorOnSurfaceInverse">@color/green_theme_inverseOnSurface</item>
         <item name="colorPrimaryInverse">@color/green_theme_inversePrimary</item>
         <item name="colorPrimaryFixed">@color/green_theme_primaryFixed</item>
+        <item name="settingsIcon">@color/green_theme_tertiary</item>
         <item name="colorOnPrimaryFixed">@color/green_theme_onPrimaryFixed</item>
         <item name="colorPrimaryFixedDim">@color/green_theme_primaryFixedDim</item>
         <item name="colorOnPrimaryFixedVariant">@color/green_theme_onPrimaryFixedVariant</item>
@@ -47,6 +48,7 @@
         <item name="colorSurfaceContainer">@color/green_theme_surfaceContainer</item>
         <item name="colorSurfaceContainerHigh">@color/green_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/green_theme_surfaceContainerHighest</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Pink.Theme.TapCounter" parent="Theme.Material3.DayNight.NoActionBar">
@@ -77,6 +79,7 @@
         <item name="colorSurfaceInverse">@color/pink_theme_inverseSurface</item>
         <item name="colorOnSurfaceInverse">@color/pink_theme_inverseOnSurface</item>
         <item name="colorPrimaryInverse">@color/pink_theme_inversePrimary</item>
+        <item name="settingsIcon">@color/pink_theme_primary</item>
         <item name="colorPrimaryFixed">@color/pink_theme_primaryFixed</item>
         <item name="colorOnPrimaryFixed">@color/pink_theme_onPrimaryFixed</item>
         <item name="colorPrimaryFixedDim">@color/pink_theme_primaryFixedDim</item>
@@ -96,6 +99,7 @@
         <item name="colorSurfaceContainer">@color/pink_theme_surfaceContainer</item>
         <item name="colorSurfaceContainerHigh">@color/pink_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/pink_theme_surfaceContainerHighest</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Blue.Theme.TapCounter" parent="Theme.Material3.DayNight.NoActionBar">
@@ -133,6 +137,7 @@
         <item name="colorSecondaryFixed">@color/blue_theme_secondaryFixed</item>
         <item name="colorOnSecondaryFixed">@color/blue_theme_onSecondaryFixed</item>
         <item name="colorSecondaryFixedDim">@color/blue_theme_secondaryFixedDim</item>
+        <item name="settingsIcon">@color/blue_theme_secondary</item>
         <item name="colorOnSecondaryFixedVariant">@color/blue_theme_onSecondaryFixedVariant</item>
         <item name="colorTertiaryFixed">@color/blue_theme_tertiaryFixed</item>
         <item name="colorOnTertiaryFixed">@color/blue_theme_onTertiaryFixed</item>
@@ -145,6 +150,7 @@
         <item name="colorSurfaceContainer">@color/blue_theme_surfaceContainer</item>
         <item name="colorSurfaceContainerHigh">@color/blue_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/blue_theme_surfaceContainerHighest</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
     <style name="Preference.SwitchPreferenceCompat" parent="@style/Preference.SwitchPreferenceCompat.Material" tools:ignore="ResourceCycle">
         <item name="widgetLayout">@layout/preference_switch</item>

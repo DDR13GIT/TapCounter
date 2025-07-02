@@ -6,9 +6,4 @@
         android:title="@string/settings_title"
         android:icon="@drawable/baseline_settings_24"
         app:showAsAction="ifRoom" />
-
-
-
-
-
 </menu>

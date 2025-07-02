@@ -8,4 +8,5 @@ object PreferenceKeys {
     const val PREF_THEME = "theme_preference"
     const val PREF_LOOP_MODE_ENABLED = "loop_mode_enabled"
     const val PREF_LOOP_NUMBER = "loop_number"
+    const val VERSION_PREFERENCE = "version_preference"
 }

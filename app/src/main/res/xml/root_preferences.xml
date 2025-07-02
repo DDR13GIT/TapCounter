@@ -39,11 +39,12 @@
             app:title="Keep the Screen On" />
 
         <ListPreference
-            android:defaultValue="1"
+            android:defaultValue="Green"
             app:icon="@drawable/outline_palette_24"
             android:entries="@array/theme_entries"
             android:entryValues="@array/theme_entries"
             android:key="theme_preference"
+            android:selectable="true"
             android:title="Theme" />
 
     </PreferenceCategory>
@@ -57,7 +58,7 @@
             app:icon="@drawable/round_refresh_24" />
 
         <EditTextPreference
-            android:defaultValue="50"
+            android:defaultValue="5"
             android:key="loop_number"
             android:title="Loop Interval"
             android:summary="Trigger effects every N taps"
@@ -71,6 +72,7 @@
             android:key="about_preference"
             android:summary="2.1.0"
             android:title="Version"
+            app:key="version_preference"
             app:icon="@drawable/outline_info_24"/>
 
     </PreferenceCategory>

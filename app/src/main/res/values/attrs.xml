@@ -4,5 +4,6 @@
         <attr name="appWidgetInnerRadius" format="dimension" />
         <attr name="appWidgetRadius" format="dimension" />
         <attr name="colorPrimaryInverse" format="color" />
+        <attr name="settingsIcon" format="color" />
     </declare-styleable>
 </resources>

@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import com.ddroy.tapcounter.BaseFragment
 import com.ddroy.tapcounter.CountAppWidget
 import com.ddroy.tapcounter.R
 import com.ddroy.tapcounter.databinding.FragmentCountingBinding
@@ -18,12 +19,20 @@ import nl.dionsegijn.konfetti.core.emitter.Emitter
 import java.util.concurrent.TimeUnit
 
 
-class CountingFragment : Fragment(R.layout.fragment_counting) {
+class CountingFragment : BaseFragment(R.layout.fragment_counting){
 
     private lateinit var binding: FragmentCountingBinding
     private val viewModel: CounterViewModel by activityViewModels()
     private lateinit var vibrationManager: VibrationManager
     private val fragmentInstance = this
+
+    override fun getHomeFragmentId(): Int {
+        return R.id.countingFragment
+    }
+
+    override fun getFragmentInstance(): Fragment {
+        return this
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -57,7 +66,7 @@ class CountingFragment : Fragment(R.layout.fragment_counting) {
                 when (menuItem.itemId) {
                     R.id.settings -> {
                         viewModel.resetConfettiState()  // Add this line
-                        Navigation.navigate(fragmentInstance,null,R.id.settingsFragment)
+                        Navigation.navigate(fragmentInstance,R.id.countingFragment,R.id.settingsFragment)
                         true
                     }
 

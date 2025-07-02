@@ -23,11 +23,10 @@ open class BaseActivity : AppCompatActivity() {
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
+        applyTheme()
         super.onCreate(savedInstanceState)
-
         prefs =  PreferenceManager.getDefaultSharedPreferences(application)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        applyTheme()
         screenOn()
     }
 

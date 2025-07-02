@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.TapCounter"
-        tools:targetApi="34" >
+        tools:targetApi="35" >
         <receiver
             android:name=".CountAppWidget"
             android:exported="false" >
