@@ -1,6 +1,6 @@
 package com.ddroy.tapcounter.viewmodel
 
-import VibrationManager
+import com.ddroy.tapcounter.utils.VibrationManager
 import android.app.Application
 import android.content.SharedPreferences
 import android.view.KeyEvent
@@ -11,6 +11,7 @@ import androidx.preference.PreferenceManager
 import com.ddroy.tapcounter.sharedPreference.PreferenceKeys
 import com.ddroy.tapcounter.utils.SoundManager
 import androidx.core.content.edit
+import com.ddroy.tapcounter.sharedPreference.AppSharedPref
 
 class CounterViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -23,6 +24,8 @@ class CounterViewModel(application: Application) : AndroidViewModel(application)
     private val _showConfetti = MutableLiveData<Boolean>()
     val showConfetti: LiveData<Boolean> = _showConfetti
 
+    var confettiCount: Int = AppSharedPref.getConfettiCount(getApplication()).toIntOrNull() ?: 0
+
     private val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(application)
     private var mediaPlayer: SoundManager = SoundManager(application)
     private val vibratorManager = VibrationManager(getApplication())
@@ -34,19 +37,23 @@ class CounterViewModel(application: Application) : AndroidViewModel(application)
          mediaPlayer = SoundManager(application)
     }
 
+    fun isEnableConfetti(): Boolean {
+        return prefs.getBoolean(PreferenceKeys.PREF_LOOP_MODE_ENABLED, false)
+    }
+
     fun incrementCount() {
         if (_isLocked.value == false) {
             _count.value = (_count.value ?: 0) + 1
             updatePreferences()
             if(isMusicPlayable()) mediaPlayer.playMusic()
             if(isVibrationPlayable()) vibratorManager.vibrate(200)
-
-            // Check for loop milestone
             val loopEnabled = prefs.getBoolean(PreferenceKeys.PREF_LOOP_MODE_ENABLED, false)
             if (loopEnabled) {
                 val loopNumber = prefs.getString(PreferenceKeys.PREF_LOOP_NUMBER, "50")?.toIntOrNull() ?: 50
                 if (_count.value!! % loopNumber == 0) {
+                    confettiCount++
                     _showConfetti.value = true
+                    AppSharedPref.setConfettiCount(getApplication(),confettiCount.toString())
                 }
             }
         }
@@ -99,6 +106,11 @@ class CounterViewModel(application: Application) : AndroidViewModel(application)
 
     fun resetConfettiState() {
         _showConfetti.value = false
+    }
+
+    fun resetConfettiCount() {
+        confettiCount = 0
+        AppSharedPref.setConfettiCount(getApplication(),confettiCount.toString())
     }
     
    override fun onCleared() {

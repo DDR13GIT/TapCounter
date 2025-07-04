@@ -83,12 +83,13 @@
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         app:srcCompat="@drawable/clove_shape"
         app:tint="?attr/colorPrimaryInverse"/>
+
     <TextView
         android:id="@+id/countTxt"
         android:layout_width="0dp"
-        android:layout_height="265dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="0"
+        tools:text="100"
         android:textColor="?android:attr/textColorLink"
         android:textAlignment="center"
         android:textSize="150sp"
@@ -97,6 +98,26 @@
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+
+    <TextView
+        android:id="@+id/confettiTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="× 0"
+        android:textAlignment="center"
+        android:textColor="?android:attr/textColorLink"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline4"
+        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintVertical_bias="0.00"
+        tools:visibility="visible" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -115,6 +136,22 @@
     <nl.dionsegijn.konfetti.xml.KonfettiView
         android:id="@+id/konfettiView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.61" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6785226" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,7 +20,6 @@ abstract class BaseFragment(layoutId: Int) : Fragment(layoutId) {
                     handleBackPress()
                 }
             })
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,7 +32,6 @@ abstract class BaseFragment(layoutId: Int) : Fragment(layoutId) {
                 v.paddingRight,
                 systemInsets.bottom
             )
-
             insets
         }
     }

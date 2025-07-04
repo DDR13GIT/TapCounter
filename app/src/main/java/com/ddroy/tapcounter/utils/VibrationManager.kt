@@ -1,3 +1,5 @@
+package com.ddroy.tapcounter.utils
+
 import android.content.Context
 import android.os.Build
 import android.os.VibrationEffect
@@ -13,17 +15,11 @@ class VibrationManager(private val context: Context) {
         // Check if device has vibrator
         if (!vibrator.hasVibrator()) return
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // For Android 8.0 (API 26) and above
-            vibrator.vibrate(VibrationEffect.createOneShot(
-                milliseconds,
-                VibrationEffect.DEFAULT_AMPLITUDE
-            ))
-        } else {
-            // Deprecated in API 26
-            @Suppress("DEPRECATION")
-            vibrator.vibrate(milliseconds)
-        }
+        // For Android 8.0 (API 26) and above
+        vibrator.vibrate(VibrationEffect.createOneShot(
+            milliseconds,
+            VibrationEffect.DEFAULT_AMPLITUDE
+        ))
     }
 
     // Helper method to get the vibrator service based on API level
